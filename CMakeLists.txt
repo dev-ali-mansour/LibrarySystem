@@ -7,4 +7,6 @@ add_executable(LibrarySystem
         main.cpp
         data/ds/linked_list/List.h
         data/ds/linked_list/List.cpp
+        data/ds/stack/StackL.h
+        data/ds/stack/StackL.cpp
 )
