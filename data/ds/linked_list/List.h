@@ -22,6 +22,10 @@ class List {
 public:
     List();
 
+    // Prevent shallow copying
+    List(const List &other);            // Copy constructor
+    List &operator=(const List &other); // Copy assignment operator
+
     ~List();
 
     bool listIsEmpty() const;

@@ -9,6 +9,28 @@ List<keyType, dataType>::List() {
     head = prev = cursor = NULL;
 }
 
+template<class keyType, class dataType>
+List<keyType, dataType>::List(const List &other) : head(nullptr), prev(nullptr), cursor(nullptr) {
+    NodePointer temp = other.head;
+    while (temp != nullptr) {
+        insertEnd(temp->key, temp->data);
+        temp = temp->next;
+    }
+}
+
+template<class keyType, class dataType>
+List<keyType, dataType> &List<keyType, dataType>::operator=(const List &other) {
+    if (this != &other) {
+        makeListEmpty();
+        NodePointer temp = other.head;
+        while (temp != nullptr) {
+            insertEnd(temp->key, temp->data);
+            temp = temp->next;
+        }
+    }
+    return *this;
+}
+
 // Class Destructor
 template<class keyType, class dataType>
 List<keyType, dataType>::~List() {
