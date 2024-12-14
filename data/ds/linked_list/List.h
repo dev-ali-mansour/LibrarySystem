@@ -4,7 +4,7 @@
 // Specification of the class
 
 template<class keyType, class dataType>
-class list {
+class List {
     //data members
     class node {
     public:
@@ -20,9 +20,9 @@ class list {
 
     //operations/functions
 public:
-    list();
+    List();
 
-    ~list();
+    ~List();
 
     bool listIsEmpty() const;
 

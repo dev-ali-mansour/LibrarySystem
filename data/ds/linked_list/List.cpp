@@ -1,23 +1,23 @@
 #include <iostream>
-#include "list.h"
+#include "List.h"
 
 using namespace std;
 
 // Class Constructor
 template<class keyType, class dataType>
-list<keyType, dataType>::list() {
+List<keyType, dataType>::List() {
     head = prev = cursor = NULL;
 }
 
 // Class Destructor
 template<class keyType, class dataType>
-list<keyType, dataType>::~list() {
+List<keyType, dataType>::~List() {
     makeListEmpty();
 }
 
 // return True if list is empty
 template<class keyType, class dataType>
-bool list<keyType, dataType>::listIsEmpty() const {
+bool List<keyType, dataType>::listIsEmpty() const {
     /*if (head == NULL) return true;
     else return false;*/
     return head == NULL;
@@ -25,14 +25,14 @@ bool list<keyType, dataType>::listIsEmpty() const {
 
 // return True if current position is empty
 template<class keyType, class dataType>
-bool list<keyType, dataType>::cursorIsEmpty() const {
+bool List<keyType, dataType>::cursorIsEmpty() const {
     return cursor == NULL;
 }
 
 // to make the current node the first node; if list is empty,
 // the current position is still empty
 template<class keyType, class dataType>
-void list<keyType, dataType>::toFirst() {
+void List<keyType, dataType>::toFirst() {
     cursor = head;
     prev = NULL;
 }
@@ -40,14 +40,14 @@ void list<keyType, dataType>::toFirst() {
 // to return True if the current node is the first node or
 // if the list and the current position are both empty.
 template<class keyType, class dataType>
-bool list<keyType, dataType>::atFirst() const {
+bool List<keyType, dataType>::atFirst() const {
     return cursor == head;
 }
 
 // to advance to next node. Assume the current position
 // is nonempty initially.
 template<class keyType, class dataType>
-void list<keyType, dataType>::advance() {
+void List<keyType, dataType>::advance() {
     prev = cursor;
     cursor = cursor->next;
 }
@@ -55,7 +55,7 @@ void list<keyType, dataType>::advance() {
 // to make the current node the tail node;
 // if list is empty, the current position is still empty
 template<class keyType, class dataType>
-void list<keyType, dataType>::toEnd() {
+void List<keyType, dataType>::toEnd() {
     if (!listIsEmpty()) {
         if (cursorIsEmpty()) toFirst();
         while (cursor->next != NULL)
@@ -66,7 +66,7 @@ void list<keyType, dataType>::toEnd() {
 // to return True if the current node is the tail node or
 // if the list and the current position are both empty.
 template<class keyType, class dataType>
-bool list<keyType, dataType>::atEnd() const {
+bool List<keyType, dataType>::atEnd() const {
     if (listIsEmpty())return true;
     else if (cursorIsEmpty())return false;
     else return cursor->next == NULL;
@@ -74,7 +74,7 @@ bool list<keyType, dataType>::atEnd() const {
 
 // to return the size of the list
 template<class keyType, class dataType>
-int list<keyType, dataType>::listSize() const {
+int List<keyType, dataType>::listSize() const {
     node *q = head;
     int counter = 0;
     while (q != NULL) {
@@ -87,26 +87,26 @@ int list<keyType, dataType>::listSize() const {
 // to update the data portion of the current node to contain el;
 // assume the current position is nonempty.
 template<class keyType, class dataType>
-void list<keyType, dataType>::updateData(const dataType &d) {
+void List<keyType, dataType>::updateData(const dataType &d) {
     cursor->data = d;
 }
 
 // to return the data in the current node;
 // assume the current position is nonempty.
 template<class keyType, class dataType>
-void list<keyType, dataType>::retrieveData(dataType &d) const {
+void List<keyType, dataType>::retrieveData(dataType &d) const {
     d = cursor->data;
 }
 
 template<class keyType, class dataType>
-void list<keyType, dataType>::retrieveKey(keyType &k) const {
+void List<keyType, dataType>::retrieveKey(keyType &k) const {
     k = cursor->key; //return cursor->data
 }
 
 // insert a node with data (el) at the head of the list;
 // the new node becomes the current node.
 template<class keyType, class dataType>
-void list<keyType, dataType>::insertFirst(const keyType &k, const dataType &d) {
+void List<keyType, dataType>::insertFirst(const keyType &k, const dataType &d) {
     toFirst();
     NodePointer pNew = new node; //node *pNew = new node;
     pNew->key = k;
@@ -122,7 +122,7 @@ void list<keyType, dataType>::insertFirst(const keyType &k, const dataType &d) {
 // without changing the current position;
 // assume the current position is nonempty in a non-empty list.
 template<class keyType, class dataType>
-void list<keyType, dataType>::insertAfter(const keyType &k, const dataType &d) {
+void List<keyType, dataType>::insertAfter(const keyType &k, const dataType &d) {
     NodePointer pNew = new node;
     pNew->key = k;
     pNew->data = d;
@@ -133,7 +133,7 @@ void list<keyType, dataType>::insertAfter(const keyType &k, const dataType &d) {
 // insert a node with data (el) before the current node,
 // current position becomes the new node.
 template<class keyType, class dataType>
-void list<keyType, dataType>::insertBefore(const keyType &k, const dataType &d) {
+void List<keyType, dataType>::insertBefore(const keyType &k, const dataType &d) {
     if (atFirst()) insertFirst(k, d); // Fix issue of inserting before the first node
     else {
         NodePointer pNew = new node;
@@ -148,7 +148,7 @@ void list<keyType, dataType>::insertBefore(const keyType &k, const dataType &d) 
 // insert a node with data (el) at the end of the list,
 // current position becomes the new node.
 template<class keyType, class dataType>
-void list<keyType, dataType>::insertEnd(const keyType &k, const dataType &d) {
+void List<keyType, dataType>::insertEnd(const keyType &k, const dataType &d) {
     if (listIsEmpty())insertFirst(k, d);
     else {
         toEnd();
@@ -160,7 +160,7 @@ void list<keyType, dataType>::insertEnd(const keyType &k, const dataType &d) {
 // if the current node is the last node initially, the current position becomes empty;
 // assume the current position is nonempty initially.
 template<class keyType, class dataType>
-void list<keyType, dataType>::deleteNode() {
+void List<keyType, dataType>::deleteNode() {
     NodePointer q;
     if (!cursorIsEmpty()) { // current node is not empty
         if (atFirst()) { // delete the head node
@@ -190,7 +190,7 @@ void list<keyType, dataType>::deleteNode() {
 // if it was initially the only node, the current position becomes empty;
 // assume the current position is nonempty initially.
 template<class keyType, class dataType>
-void list<keyType, dataType>::deleteFirst() {
+void List<keyType, dataType>::deleteFirst() {
     if (!listIsEmpty()) {
         toFirst();
         deleteNode();
@@ -200,7 +200,7 @@ void list<keyType, dataType>::deleteFirst() {
 // delete the last node and set the current position to empty;
 // assume the current position is nonempty initially.
 template<class keyType, class dataType>
-void list<keyType, dataType>::deleteEnd() {
+void List<keyType, dataType>::deleteEnd() {
     if (!listIsEmpty()) {
         toEnd();
         deleteNode();
@@ -209,7 +209,7 @@ void list<keyType, dataType>::deleteEnd() {
 
 // delete whole list
 template<class keyType, class dataType>
-void list<keyType, dataType>::makeListEmpty() {
+void List<keyType, dataType>::makeListEmpty() {
     toFirst();
     while (!listIsEmpty()) {
         deleteNode();
@@ -220,7 +220,7 @@ void list<keyType, dataType>::makeListEmpty() {
 // If found, set cursor to the node and return True,
 // else return false and the current position becomes empty.
 template<class keyType, class dataType>
-bool list<keyType, dataType>::search(const keyType &k) {
+bool List<keyType, dataType>::search(const keyType &k) {
     bool found = false;
     toFirst();
     while (!found && !cursorIsEmpty()) {
@@ -233,7 +233,7 @@ bool list<keyType, dataType>::search(const keyType &k) {
 // insert a node in a position that maintains an ascending
 // order of the key portion of the nodes.
 template<class keyType, class dataType>
-void list<keyType, dataType>::orderInsert(const keyType &k, const dataType &d) {
+void List<keyType, dataType>::orderInsert(const keyType &k, const dataType &d) {
     toFirst();
     while (!cursorIsEmpty() && k > cursor->key)
         advance();
@@ -243,7 +243,7 @@ void list<keyType, dataType>::orderInsert(const keyType &k, const dataType &d) {
 
 // traverse list to print key and data fields
 template<class keyType, class dataType>
-void list<keyType, dataType>::traverse() {
+void List<keyType, dataType>::traverse() {
     toFirst();
     while (!cursorIsEmpty()) {
         cout << cursor->data << endl;
