@@ -9,4 +9,6 @@ add_executable(LibrarySystem
         data/ds/linked_list/List.cpp
         data/ds/stack/StackL.h
         data/ds/stack/StackL.cpp
+        data/ds/queue/QueueL.h
+        data/ds/queue/QueueL.cpp
 )
