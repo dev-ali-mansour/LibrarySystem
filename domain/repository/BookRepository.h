@@ -9,7 +9,6 @@
 
 class BookRepository {
     List<string, Book> books;
-    long lastId{1};
 
     void initialize();
 

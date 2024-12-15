@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.30)
 project(LibrarySystem)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(LibrarySystem
         presentation/main.cpp
@@ -22,6 +22,7 @@ add_executable(LibrarySystem
         domain/use_case/book/RemoveBookUseCase.cpp
         domain/use_case/book/FindBookByIsbnUseCase.cpp
         domain/use_case/book/FindBookByTitleUseCase.cpp
+        domain/use_case/book/FindBookByAuthorUseCase.cpp
         domain/repository/AuthRepository.h
         domain/repository/BookRepository.h
         data/repository/AuthRepository.cpp
