@@ -26,9 +26,14 @@ add_executable(LibrarySystem
         domain/use_case/book/FindBookByIsbnUseCase.cpp
         domain/use_case/book/FindBookByTitleUseCase.cpp
         domain/use_case/book/FindBookByAuthorUseCase.cpp
+        domain/use_case/book/RequestToBorrowBookUseCase.cpp
+        domain/use_case/book/ProceedBorrowRequestUseCase.cpp
+        domain/use_case/book/GetBorrowRequestsStatsUseCase.cpp
+        domain/use_case/book/GetPendingRequestsUseCase.cpp
+        domain/use_case/book/GetCompletedRequestsUseCase.cpp
         domain/repository/AuthRepository.h
         domain/repository/BookRepository.h
         data/repository/AuthRepository.cpp
         data/repository/BookRepository.cpp
-        data/util/StringSearch.cpp
+        data/util/Utilities.cpp
 )
