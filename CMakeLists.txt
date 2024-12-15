@@ -18,6 +18,7 @@ add_executable(LibrarySystem
         domain/use_case/auth/SignUpUseCase.cpp
         domain/use_case/auth/SignInUseCase.cpp
         domain/use_case/book/ListBooksUseCase.cpp
+        domain/use_case/book/AddNewBookUseCase.cpp
         domain/repository/AuthRepository.h
         domain/repository/BookRepository.h
         data/repository/AuthRepository.cpp
