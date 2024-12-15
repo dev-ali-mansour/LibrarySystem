@@ -14,6 +14,6 @@ public:
             const short &version,
             const int &publishingYear,
             const int &pages) {
-        return repo.addNewBook(isbn, title, author, version, pages);
+        return repo.addNewBook(isbn, title, author, version, publishingYear, pages);
     }
 };
