@@ -15,7 +15,6 @@ struct User {
     // Default constructor
     User() = default;
 
-
     User(
         const long id,
         const string &first_name,
