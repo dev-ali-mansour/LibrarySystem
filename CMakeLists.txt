@@ -21,8 +21,10 @@ add_executable(LibrarySystem
         domain/use_case/book/AddNewBookUseCase.cpp
         domain/use_case/book/RemoveBookUseCase.cpp
         domain/use_case/book/FindBookByIsbnUseCase.cpp
+        domain/use_case/book/FindBookByTitleUseCase.cpp
         domain/repository/AuthRepository.h
         domain/repository/BookRepository.h
         data/repository/AuthRepository.cpp
         data/repository/BookRepository.cpp
+        data/util/StringSearch.cpp
 )
