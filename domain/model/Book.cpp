@@ -15,9 +15,9 @@ struct Book {
     Book(const string &isbn,
          const string &title,
          const string &author,
-         const short version,
-         const int publishing_year,
-         int pages
+         const short &version,
+         const int &publishing_year,
+         const int &pages
     ) : isbn(isbn),
         title(title),
         author(author),
