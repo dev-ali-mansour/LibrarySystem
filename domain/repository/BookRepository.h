@@ -4,16 +4,28 @@
 #include<iostream>
 #include <vector>
 #include "../../data/ds/linked_list/List.h"
+#include "../../data/ds/stack/StackL.cpp"
+#include "../../data/ds/queue/QueueL.cpp"
 #include "../../data/util/StringSearch.cpp"
-#include "../model/Book.cpp"
+#include "../model/BookAction.cpp"
 
 class BookRepository {
+    static BookRepository *instance;
+
     List<string, Book> books;
+    StackL<BookAction> actions;
 
     void initialize();
 
-public:
     BookRepository();
+
+public:
+    static BookRepository *getInstance() {
+        if (instance == nullptr) {
+            instance = new BookRepository();
+        }
+        return instance;
+    }
 
     bool addNewBook(
             const string &isbn,
@@ -24,6 +36,8 @@ public:
             const int &pages);
 
     bool removeBook(const string &isbn);
+
+    void undo();
 
     vector<Book> findBookByIsbn(const string &isbn);
 
