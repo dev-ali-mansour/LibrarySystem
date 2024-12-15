@@ -1,13 +1,13 @@
 #include "../../repository/BookRepository.h"
 
 class ListBooksUseCase {
-    BookRepository repo;
+    BookRepository *repo;
 
 public:
-    explicit ListBooksUseCase(BookRepository &repository) : repo(repository) {
+    explicit ListBooksUseCase(BookRepository *repository) : repo(repository) {
     }
 
     vector<Book> execute() {
-        return repo.listBooks();
+        return repo->listBooks();
     }
 };

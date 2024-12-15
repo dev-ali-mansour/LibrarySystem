@@ -19,8 +19,6 @@ class StackL {
 public:
     StackL();                       // Constructor
 
-    StackL(const StackL &);   // Copy Constructor
-
     ~StackL();                      // Destructor
 
     // Member Functions

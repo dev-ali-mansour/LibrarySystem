@@ -1,5 +1,7 @@
 #include "../../domain/repository/BookRepository.h"
 
+BookRepository* BookRepository::instance = nullptr;
+
 void BookRepository::initialize() {
     const Book book1("9780134383583", "Discovering Modern C++", "Peter Gottschling", 1, 2015, 480);
     const Book book2("9781507707616", "C# Programming for Beginners", "Troy Dimes", 1, 2015, 106);
@@ -38,7 +40,7 @@ vector<Book> BookRepository::findBookByIsbn(const string &isbn) {
 vector<Book> BookRepository::findBookByTitle(const string &title) {
     vector<Book> list;
     if (books.listIsEmpty()) {
-        cerr << "No books found!\n";
+        cerr << "\nNo books found!\n";
         return list;
     }
     Book book;
@@ -50,7 +52,7 @@ vector<Book> BookRepository::findBookByTitle(const string &title) {
             list.push_back(book);
         books.advance();
     }
-    if (list.empty())cerr << "No books matches your criteria (" << title << ")\n";
+    if (list.empty())cerr << "\nNo books matches your criteria (" << title << ")\n";
     return list;
 }
 
@@ -63,7 +65,7 @@ vector<Book> BookRepository::findBookByAuthor(const string &author) {
 vector<Book> BookRepository::listBooks() {
     vector<Book> list;
     if (books.listIsEmpty()) {
-        cerr << "No books found!\n";
+        cerr << "\nNo books found!\n";
         return list;
     }
     Book book;

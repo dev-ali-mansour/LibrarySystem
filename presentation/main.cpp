@@ -6,12 +6,10 @@
 #include "../domain/use_case/book/FindBookByTitleUseCase.cpp"
 
 int main() {
-    AuthRepository authRepo;
-    BookRepository bookRepo;
-    SignInUseCase signInUseCase(authRepo);
-    SignUpUseCase signUpUseCase(authRepo);
-    ListBooksUseCase listBooksUseCase(bookRepo);
-    FindBookByTitleUseCase findBookByTitleUseCase(bookRepo);
+    SignInUseCase signInUseCase(AuthRepository::getInstance());
+    SignUpUseCase signUpUseCase(AuthRepository::getInstance());
+    ListBooksUseCase listBooksUseCase(BookRepository::getInstance());
+    FindBookByTitleUseCase findBookByTitleUseCase(BookRepository::getInstance());
     string username, password;
     User currentUser;
     bool isValid;

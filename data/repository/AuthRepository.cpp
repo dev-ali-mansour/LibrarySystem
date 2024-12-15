@@ -1,6 +1,6 @@
-#include<iostream>
 #include "../../domain/repository/AuthRepository.h"
-using namespace std;
+
+AuthRepository* AuthRepository::instance = nullptr;
 
 AuthRepository::AuthRepository() {
     initialize();

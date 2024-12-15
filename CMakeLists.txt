@@ -15,6 +15,8 @@ add_executable(LibrarySystem
         domain/model/Book.cpp
         domain/model/BorrowRequest.cpp
         domain/model/Role.cpp
+        domain/model/ActionType.cpp
+        domain/model/BookAction.cpp
         domain/use_case/auth/SignUpUseCase.cpp
         domain/use_case/auth/SignInUseCase.cpp
         domain/use_case/book/ListBooksUseCase.cpp

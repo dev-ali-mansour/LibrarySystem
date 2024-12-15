@@ -4,14 +4,14 @@
 using namespace std;
 
 class SignUpUseCase {
-    AuthRepository repo;
+    AuthRepository *repo;
 
 public:
-    explicit SignUpUseCase(const AuthRepository &repository): repo(repository) {
+    explicit SignUpUseCase(AuthRepository *repository) : repo(repository) {
     }
 
     void execute(const string &firstName, const string &lastName, const string &email, const short age,
                  const string &username, const string &password, bool &result, User &currentUser) {
-        repo.signUp(firstName, lastName, email, age, username, password, result, currentUser);
+        repo->signUp(firstName, lastName, email, age, username, password, result, currentUser);
     }
 };

@@ -1,13 +1,13 @@
 #include "../../repository/BookRepository.h"
 
 class FindBookByIsbnUseCase {
-    BookRepository repo;
+    BookRepository *repo;
 
 public:
-    explicit FindBookByIsbnUseCase(BookRepository &repository) : repo(repository) {
+    explicit FindBookByIsbnUseCase(BookRepository *repository) : repo(repository) {
     }
 
     vector<Book> execute(const string &isbn) {
-        return repo.findBookByIsbn(isbn);
+        return repo->findBookByIsbn(isbn);
     }
 };
