@@ -22,6 +22,7 @@ add_executable(LibrarySystem
         domain/use_case/book/ListBooksUseCase.cpp
         domain/use_case/book/AddNewBookUseCase.cpp
         domain/use_case/book/RemoveBookUseCase.cpp
+        domain/use_case/book/UndoUseCase.cpp
         domain/use_case/book/FindBookByIsbnUseCase.cpp
         domain/use_case/book/FindBookByTitleUseCase.cpp
         domain/use_case/book/FindBookByAuthorUseCase.cpp
