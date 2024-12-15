@@ -73,4 +73,6 @@ public:
     void traverse();
 };
 
+#include "List.tpp"
+
 #endif //LIBRARY_SYSTEM_LIST_H

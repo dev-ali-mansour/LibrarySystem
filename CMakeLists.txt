@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(LibrarySystem
         presentation/main.cpp
         data/ds/linked_list/List.h
-        data/ds/linked_list/List.cpp
+        data/ds/linked_list/List.tpp
         data/ds/stack/StackL.h
         data/ds/stack/StackL.cpp
         data/ds/queue/QueueL.h
@@ -17,6 +17,9 @@ add_executable(LibrarySystem
         domain/model/Role.cpp
         domain/use_case/auth/SignUpUseCase.cpp
         domain/use_case/auth/SignInUseCase.cpp
+        domain/use_case/book/ListBooksUseCase.cpp
         domain/repository/AuthRepository.h
+        domain/repository/BookRepository.h
         data/repository/AuthRepository.cpp
+        data/repository/BookRepository.cpp
 )

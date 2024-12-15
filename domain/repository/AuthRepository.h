@@ -2,7 +2,7 @@
 #define AUTH_REPOSITORY_H
 
 #include<iostream>
-#include "../../data/ds/linked_list/List.cpp"
+#include "../../data/ds/linked_list/List.h"
 #include "../model/User.cpp"
 
 using namespace std;
