@@ -22,18 +22,24 @@ bool BookRepository::addNewBook(
         const int &publishingYear,
         const int &pages) {
     //Todo(Not Implemented Yet)
+    return false;
 }
 
 bool BookRepository::removeBook(const string &isbn) {
     //Todo(Not Implemented Yet)
+    return false;
 }
 
 vector<Book> BookRepository::findBookByIsbn(const string &isbn) {
+    vector<Book> list;
     //Todo(Not Implemented Yet)
+    return list;
 }
 
 vector<Book> BookRepository::findBookByAuthor(const string &author) {
+    vector<Book> list;
     //Todo(Not Implemented Yet)
+    return list;
 }
 
 vector<Book> BookRepository::listBooks() {
