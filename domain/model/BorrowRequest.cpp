@@ -5,14 +5,16 @@ using namespace std;
 struct BorrowRequest {
     string isbn;
     long userId;
-    long created;
+    string created;
+
+    BorrowRequest() = default;
 
     BorrowRequest(
         const string &isbn,
-        const long user_id,
-        const long created)
+        const long &userId,
+        const string created)
         : isbn(isbn),
-          userId(user_id),
+          userId(userId),
           created(created) {
     }
 };
