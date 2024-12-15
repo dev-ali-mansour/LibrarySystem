@@ -3,6 +3,7 @@
 #include "../domain/use_case/auth/SignInUseCase.cpp"
 #include "../domain/use_case/auth/SignUpUseCase.cpp"
 #include "../domain/use_case/book/ListBooksUseCase.cpp"
+#include "../domain/use_case/book/FindBookByTitleUseCase.cpp"
 
 int main() {
     AuthRepository authRepo;
@@ -10,6 +11,7 @@ int main() {
     SignInUseCase signInUseCase(authRepo);
     SignUpUseCase signUpUseCase(authRepo);
     ListBooksUseCase listBooksUseCase(bookRepo);
+    FindBookByTitleUseCase findBookByTitleUseCase(bookRepo);
     string username, password;
     User currentUser;
     bool isValid;
@@ -24,6 +26,14 @@ int main() {
         cout << "Books List\n";
         vector<Book> books = listBooksUseCase.execute();
         for (const auto &book: books) {
+            cout << "ISBN: " << book.isbn << ", Title: " << book.title << endl;
+        }
+        cout << endl << "Enter Book Title To Search: ";
+        string title;
+        cin.ignore();
+        getline(cin, title);
+        vector<Book> results = findBookByTitleUseCase.execute(title);
+        for (const auto &book: results) {
             cout << "ISBN: " << book.isbn << ", Title: " << book.title << endl;
         }
     } else cerr << "Invalid username or password!";
