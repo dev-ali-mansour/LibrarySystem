@@ -4,6 +4,7 @@
 #include<iostream>
 #include <vector>
 #include "../../data/ds/linked_list/List.h"
+#include "../../data/util/StringSearch.cpp"
 #include "../model/Book.cpp"
 
 class BookRepository {
@@ -26,6 +27,8 @@ public:
     bool removeBook(const string &isbn);
 
     vector<Book> findBookByIsbn(const string &isbn);
+
+    vector<Book> findBookByTitle(const string &title);
 
     vector<Book> findBookByAuthor(const string &author);
 

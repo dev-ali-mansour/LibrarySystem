@@ -1,4 +1,3 @@
-
 #include "../../domain/repository/BookRepository.h"
 
 void BookRepository::initialize() {
@@ -33,6 +32,25 @@ bool BookRepository::removeBook(const string &isbn) {
 vector<Book> BookRepository::findBookByIsbn(const string &isbn) {
     vector<Book> list;
     //Todo(Not Implemented Yet)
+    return list;
+}
+
+vector<Book> BookRepository::findBookByTitle(const string &title) {
+    vector<Book> list;
+    if (books.listIsEmpty()) {
+        cerr << "No books found!\n";
+        return list;
+    }
+    Book book;
+    books.toFirst();
+    while (!books.cursorIsEmpty()) {
+        books.retrieveData(book);
+        // Check if book title contains the title parameter
+        if (StringSearch::caseInsensitiveSubstringSearch(book.title, title))
+            list.push_back(book);
+        books.advance();
+    }
+    if (list.empty())cerr << "No books matches your criteria (" << title << ")\n";
     return list;
 }
 
