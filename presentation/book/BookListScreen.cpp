@@ -1,4 +1,5 @@
 #include "BookListScreen.h"
+#include<string>
 
 ListBooksUseCase listBooksUseCase(BookRepository::getInstance());
 FindBookByIsbnUseCase findBookByIsbnUseCase(BookRepository::getInstance());
@@ -8,11 +9,18 @@ AddNewBookUseCase addNewBookUseCase(BookRepository::getInstance());
 RemoveBookUseCase removeBookUseCase(BookRepository::getInstance());
 UndoUseCase undoUseCase(BookRepository::getInstance());
 
-void showBookList() {
+void showBookList(const User *userPtr) {
     cout << "#############" << endl;
     cout << "Books Screen" << endl;
     cout << "#############" << endl;
     vector<Book> books;
+    string isbn;
+    string title;
+    string author;
+    short version;
+    int publishingYear;
+    int pages;
+    int copiesAvailable;
     bool repeat = true;
     while (repeat) {
         books.clear();
@@ -21,7 +29,11 @@ void showBookList() {
         cout << "2) Search By ISBN" << endl;
         cout << "3) Search By Title" << endl;
         cout << "4) Search By Author" << endl;
-        // Todo Add Features: AddNew Book, Remove Book, Undo And set if for admin only
+        if (userPtr->role == Role::ADMIN) {
+            cout << "5) Add New Book" << endl;
+            cout << "6) Remove Book" << endl;
+            cout << "7) Undo" << endl;
+        }
         short choice;
         string query;
         cin >> choice;
@@ -31,7 +43,12 @@ void showBookList() {
             cout << "Please enter a valid number!" << endl;
             continue;
         }
-        //Todo Check if input is invalid(choice>4 and not admin)
+
+        if (userPtr->role != Role::ADMIN && (choice > 4 || choice <1)) {
+            cout << "Please enter a valid number!" << endl;
+            continue;
+        }
+
         cin.ignore();
         switch (choice) {
             case 1:
@@ -52,7 +69,37 @@ void showBookList() {
                 getline(cin, query);
                 books = findBookByAuthorUseCase.execute(query);
                 break;
-            //Todo Add Required Use cases
+            case 5:
+                cout<<"Enter Book data to be added\n";
+                cout<<"ISBN\n";
+                cin>>isbn;
+                cout<<"Book Title";
+                cin>>title;
+                cout<<"Book Author";
+                cin>>author;
+                cout<<"Book Version";
+                cin>>version;
+                cout<<"Publishing Year";
+                cin>>publishingYear;
+                cout<<"Book Pages count";
+                cin>>pages;
+                cout<<"How many copies of the book you want to add";
+                cin>>copiesAvailable;
+                addNewBookUseCase.execute(
+                        isbn,
+                        title,
+                        author,
+                        version,
+                        publishingYear,
+                        pages,
+                        copiesAvailable);
+                break;
+            case 6:
+                removeBookUseCase.execute(isbn);
+                break;
+            case 7:
+                undoUseCase.execute();
+                break;
             default:
                 cout << "Invalid choice! try again" << endl;
                 break;

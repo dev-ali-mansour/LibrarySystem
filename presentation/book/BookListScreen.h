@@ -11,7 +11,7 @@
 #include "../../domain/use_case/book/UndoUseCase.cpp"
 #include "../main/MainScreen.h"
 
-void showBookList();
+void showBookList(const User *userPtr);
 
 
 #endif //LIBRARYSYSTEM_BOOKLISTSCREEN_H
