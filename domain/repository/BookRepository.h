@@ -49,7 +49,7 @@ public:
 
     vector<Book> listBooks();
 
-    void requestToBorrowBook(const string &isbn, const long &user_id, const string &created);
+    void requestToBorrowBook(const string &isbn, const long &user_id);
 
     void proceedBorrowRequest();
 

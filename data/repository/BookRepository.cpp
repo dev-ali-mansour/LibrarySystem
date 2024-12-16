@@ -26,12 +26,13 @@ BookRepository::BookRepository() {
 }
 
 bool BookRepository::addNewBook(
-        const string &isbn,
-        const string &title,
-        const string &author,
-        const short &version,
-        const int &publishingYear,
-        const int &pages, const int &copiesAvailable) {
+    const string &isbn,
+    const string &title,
+    const string &author,
+    const short &version,
+    const int &publishingYear,
+    const int &pages,
+    const int &copiesAvailable) {
     // Check if the book already exists
     vector<Book> matchedBooks = findBookByIsbn(isbn);
     if (!matchedBooks.empty()) {
@@ -39,15 +40,15 @@ bool BookRepository::addNewBook(
         Book existingBook = matchedBooks.front();
         existingBook.copiesAvailable += copiesAvailable;
         cout << "Book already exists. Incremented available copies by "
-             << copiesAvailable << ". Total copies now: "
-             << existingBook.copiesAvailable << ".\n";
+                << copiesAvailable << ". Total copies now: "
+                << existingBook.copiesAvailable << ".\n";
         return true;
     }
     // If book does not exist, add it as a new entry
     const Book book1(isbn, title, author, version, publishingYear, pages, copiesAvailable);
     books.orderInsert(book1.isbn, book1);
     cout << "New book added with ISBN " << isbn
-         << " and " << copiesAvailable << " copies available.\n";
+            << " and " << copiesAvailable << " copies available.\n";
     return true;
 }
 
@@ -79,13 +80,13 @@ void BookRepository::undo() {
         cout << "Removing The book " << action.book.title << endl;
     } else if (action.type == ActionType::REMOVE) {
         result = addNewBook(
-                action.book.isbn,
-                action.book.title,
-                action.book.author,
-                action.book.version,
-                action.book.publishingYear,
-                action.book.pages,
-                action.book.copiesAvailable);
+            action.book.isbn,
+            action.book.title,
+            action.book.author,
+            action.book.version,
+            action.book.publishingYear,
+            action.book.pages,
+            action.book.copiesAvailable);
         cout << "Re-adding The book " << action.book.title << endl;
     }
     if (result)cout << "Operation done successfully!\n";
@@ -129,12 +130,11 @@ vector<Book> BookRepository::findBookByAuthor(const string &author) {
         books.retrieveData(book);
         //check if book author contains the author parameter
         if (Utilities::caseInsensitiveSubstringSearch(book.author, author)) {
-
             list.push_back(book);
         }
         books.advance();
     }
-    if (list.empty()) cerr << "\nNo books matches your criteria (" << author << ")\n";
+    if (list.empty()) cout << "\nNo books matches your criteria (" << author << ")\n";
     return list;
 }
 
@@ -155,13 +155,24 @@ vector<Book> BookRepository::listBooks() {
 }
 
 void BookRepository::requestToBorrowBook(
-        const string &isbn,
-        const long &user_id,
-        const string &created) {
-    BorrowRequest request(isbn, user_id, created);
+    const string &isbn,
+    const long &user_id) {
+    // Check if the book exists
+    Book book;
+    bool exists = false;
+    books.toFirst();
+    while (!exists && !books.cursorIsEmpty()) {
+        books.retrieveData(book);
+        if (book.isbn == isbn) exists = true;
+        books.advance();
+    }
+    if (!exists) {
+        cout << "This book is not found!" << endl;
+        return;
+    }
+    const BorrowRequest request(isbn, user_id, Utilities::getTime());
     pendingRequests.enqueue(request);
     cout << "Borrow request added for ISBN: " << isbn << " by user " << user_id << endl;
-
 }
 
 void BookRepository::proceedBorrowRequest() {
@@ -171,49 +182,37 @@ void BookRepository::proceedBorrowRequest() {
     }
     BorrowRequest request;
     pendingRequests.dequeue(request);
-    //check if requested book is available
     vector<Book> matchedBooks = findBookByIsbn(request.isbn);
-    if (matchedBooks.empty()) {
-
-        cerr << "Book with ISBN " << request.isbn << " not found\n";
-        return;
-    }
     Book book = matchedBooks.front();
     //check if there is copies of the requested book
     if (book.copiesAvailable > 0) {
         completedRequests.enqueue(request);
         book.copiesAvailable--;
         cout << "Borrow request for ISBN " << request.isbn << " by user " << request.userId
-             << " has been completed successfully.\n";
+                << " has been completed successfully.\n";
     } else {
         cerr << "No available copies for ISBN" << request.isbn << "!\n";
         pendingRequests.enqueue(request);
         cout << "Borrow request are now pending till copies of book " << book.title << "with ISBN" << book.isbn
-             << "be available";
+                << "be available";
     }
-
-
 }
 
 void BookRepository::getBorrowRequestsStats(int &pendingCount, int &completedCount) const {
-
     pendingCount = pendingRequests.queueLength();
     completedCount = completedRequests.queueLength();
-
 }
 
 vector<BorrowRequest> BookRepository::getPendingRequests() {
     vector<BorrowRequest> list;
     QueueL<BorrowRequest> temp;
     BorrowRequest request;
-    while(!pendingRequests.queueIsEmpty()){
-
+    while (!pendingRequests.queueIsEmpty()) {
         pendingRequests.dequeue(request);
         temp.enqueue(request);
         list.push_back(request);
     }
-    while (!temp.queueIsEmpty()){
-
+    while (!temp.queueIsEmpty()) {
         temp.dequeue(request);
         pendingRequests.enqueue(request);
     }
@@ -226,13 +225,11 @@ vector<BorrowRequest> BookRepository::getCompletedRequests() {
     QueueL<BorrowRequest> temp;
     BorrowRequest request;
     while (!completedRequests.queueIsEmpty()) {
-
         completedRequests.dequeue(request);
         temp.enqueue(request);
         list.push_back(request);
     }
     while (!temp.queueIsEmpty()) {
-
         temp.dequeue(request);
         completedRequests.enqueue(request);
     }
