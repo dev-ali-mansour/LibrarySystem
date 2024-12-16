@@ -24,6 +24,7 @@ struct Book {
         author(author),
         version(version),
         publishingYear(publishing_year),
-        pages(pages) {
+        pages(pages),
+        copiesAvailable(copiesAvailable){
     }
 };
