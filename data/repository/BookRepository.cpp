@@ -170,7 +170,29 @@ void BookRepository::proceedBorrowRequest() {
     }
     BorrowRequest request;
     pendingRequests.dequeue(request);
+    //check if requested book is available
     vector<Book> matchedBooks = findBookByIsbn(request.isbn);
+    if (matchedBooks.empty()){
+
+        cerr<<"Book with ISBN "<<request.isbn<<" not found\n";
+        return;
+    }
+    Book book = matchedBooks.front();
+    //check if there is copies of the requested book
+    if(book.copiesAvailable>0)
+    {
+        completedRequests.enqueue(request);
+        book.copiesAvailable--;
+        cout << "Borrow request for ISBN " << request.isbn << " by user " << request.userId
+             << " has been completed successfully.\n";
+    }
+    else {
+        cerr<<"No available copies for ISBN"<<request.isbn<<"!\n";
+        pendingRequests.enqueue(request);
+        cout<<"Borrow request are now pending till copies of book "<<book.title<<"with ISBN"<<book.isbn<<"be available";
+    }
+
+
 
 }
 
