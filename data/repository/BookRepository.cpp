@@ -31,9 +31,23 @@ bool BookRepository::addNewBook(
     const string &author,
     const short &version,
     const int &publishingYear,
-    const int &pages) {
-    const Book book1(isbn, title, author, version,publishingYear,pages );
+    const int &pages,const int &copiesAvailable) {
+    // Check if the book already exists
+    vector<Book> matchedBooks = findBookByIsbn(isbn);
+    if (!matchedBooks.empty()) {
+        // Book already exists, increment the available copies
+        Book existingBook = matchedBooks.front();
+        existingBook.copiesAvailable += copiesAvailable;
+        cout << "Book already exists. Incremented available copies by "
+             << copiesAvailable << ". Total copies now: "
+             << existingBook.copiesAvailable << ".\n";
+        return true;
+    }
+    // If book does not exist, add it as a new entry
+    const Book book1(isbn, title, author, version,publishingYear,pages,copiesAvailable);
     books.orderInsert(book1.isbn,book1);
+    cout << "New book added with ISBN " << isbn
+         << " and " << copiesAvailable << " copies available.\n";
     return true;
 }
 
