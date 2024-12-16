@@ -197,7 +197,10 @@ void BookRepository::proceedBorrowRequest() {
 }
 
 void BookRepository::getBorrowRequestsStats(int &pendingCount, int &completedCount) const {
-    //Todo(Not Implemented Yet)
+
+    pendingCount = pendingRequests.queueLength();
+    completedCount = completedRequests.queueLength();
+
 }
 
 vector<BorrowRequest> BookRepository::getPendingRequests() {
