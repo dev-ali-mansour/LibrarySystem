@@ -1,6 +1,7 @@
 #include <limits>
 #include "MainScreen.h"
 #include "../book/BookListScreen.h"
+#include "../book/BorrowRequestsScreen.h"
 
 GetCurrentUserUseCase getCurrentUserUseCase(AuthRepository::getInstance());
 SignOutUseCase signOutUseCase(AuthRepository::getInstance());
@@ -15,12 +16,13 @@ void showMainMenu() {
     cout << "###########" << endl;
     cout << "Main Screen" << endl;
     cout << "###########" << endl;
-    User *userPtr = getCurrentUserUseCase.execute();
-    string fullName = userPtr->firstName + " " + userPtr->lastName;
+    const User *userPtr = getCurrentUserUseCase.execute();
+    const string fullName = userPtr->firstName + " " + userPtr->lastName;
     cout << "Welcome back " << fullName << endl;
     cout << "Choose an action:" << endl;
-    cout << "1) Show Book List" << endl;
-    cout << "2) Logout" << endl;
+    cout << "1) Books" << endl;
+    cout << "2) Borrow Requests" << endl;
+    cout << "3) Logout" << endl;
     bool repeat = true;
     while (repeat) {
         short choice;
@@ -36,8 +38,10 @@ void showMainMenu() {
                 showBookList();
                 repeat = false;
                 break;
-
             case 2:
+                showBorrowRequests(userPtr);
+                break;
+            case 3:
                 signOutUseCase.execute();
                 showMainScreen();
                 repeat = false;
