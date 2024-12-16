@@ -144,6 +144,8 @@ void BookRepository::requestToBorrowBook(
     const long &user_id,
     const string &created) {
     BorrowRequest request(isbn, user_id, created);
+    pendingRequests.enqueue(request);
+    cout << "Borrow request added for ISBN: " << isbn << " by user " << user_id << endl;
 
 }
 
