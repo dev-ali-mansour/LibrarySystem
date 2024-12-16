@@ -47,6 +47,8 @@ bool BookRepository::addNewBook(
     // If book does not exist, add it as a new entry
     const Book book1(isbn, title, author, version, publishingYear, pages, copiesAvailable);
     books.orderInsert(book1.isbn, book1);
+    const BookAction action(ActionType::ADD,book1);
+    actions.push(action);
     cout << "New book added with ISBN " << isbn
             << " and " << copiesAvailable << " copies available.\n";
     return true;
