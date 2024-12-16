@@ -8,6 +8,6 @@ public:
     }
 
     vector<BorrowRequest> execute() {
-        return repo->getCompleteedRequests();
+        return repo->getCompletedRequests();
     }
 };
