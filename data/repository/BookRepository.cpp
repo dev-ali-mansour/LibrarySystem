@@ -113,7 +113,7 @@ vector<Book> BookRepository::findBookByAuthor(const string &author) {
     while (!books.listIsEmpty()){
         books.retrieveData(book);
         //check if book author contains the author parameter
-        if(Utilities::caseInsensitiveSubstringSearch(book.author,author)){
+        if(StringSearch::caseInsensitiveSubstringSearch(book.author,author)){
 
             list.push_back(book);
         }
@@ -144,7 +144,6 @@ void BookRepository::requestToBorrowBook(
     const long &user_id,
     const string &created) {
     //Todo(Not Implemented Yet)
-
 }
 
 void BookRepository::proceedBorrowRequest() {
