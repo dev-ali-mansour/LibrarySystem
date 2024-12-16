@@ -35,7 +35,7 @@ void showMainMenu() {
         }
         switch (choice) {
             case 1:
-                showBookList();
+                showBookList(userPtr);
                 repeat = false;
                 break;
             case 2:
