@@ -7,9 +7,9 @@ using namespace chrono;
 BookRepository *BookRepository::instance = nullptr;
 
 void BookRepository::initialize() {
-    const Book book1("9780134383583", "Discovering Modern C++", "Peter Gottschling", 1, 2015, 480);
-    const Book book2("9781507707616", "C# Programming for Beginners", "Troy Dimes", 1, 2015, 106);
-    const Book book3("9781517080402", "JAVA Programming for Beginners", "Tim Warren", 1, 2002, 68);
+    const Book book1("9780134383583", "Discovering Modern C++", "Peter Gottschling", 1, 2015, 480,5);
+    const Book book2("9781507707616", "C# Programming for Beginners", "Troy Dimes", 1, 2015, 106,3);
+    const Book book3("9781517080402", "JAVA Programming for Beginners", "Tim Warren", 1, 2002, 68,2);
     books.insertFirst(book1.isbn, book1);
     books.orderInsert(book2.isbn, book2);
     books.orderInsert(book3.isbn, book3);
@@ -150,7 +150,14 @@ void BookRepository::requestToBorrowBook(
 }
 
 void BookRepository::proceedBorrowRequest() {
-    //Todo(Not Implemented Yet)
+    if(pendingRequests.queueIsEmpty()) {
+        cerr << "No pending borrow requests!\n";
+        return;
+    }
+    BorrowRequest request;
+    pendingRequests.dequeue(request);
+    vector<Book> matchedBooks = findBookByIsbn(request.isbn);
+
 }
 
 void BookRepository::getBorrowRequestsStats(int &pendingCount, int &completedCount) const {
