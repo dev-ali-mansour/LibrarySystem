@@ -1,13 +1,13 @@
 #include "../../repository/BookRepository.h"
 
-class AddNewBorrowRequestUseCase {
+class RequestToBorrowBookUseCase {
     BookRepository *repo;
 
 public:
-    explicit AddNewBorrowRequestUseCase(BookRepository *repository) : repo(repository) {
+    explicit RequestToBorrowBookUseCase(BookRepository *repository) : repo(repository) {
     }
 
-    void execute(const string &isbn, const long &user_id, const string &created) const {
-        repo->requestToBorrowBook(isbn, user_id, created);
+    void execute(const string &isbn, const long &user_id) const {
+        repo->requestToBorrowBook(isbn, user_id);
     }
 };
