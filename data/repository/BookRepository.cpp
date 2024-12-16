@@ -223,6 +223,18 @@ vector<BorrowRequest> BookRepository::getPendingRequests() {
 
 vector<BorrowRequest> BookRepository::getCompletedRequests() {
     vector<BorrowRequest> list;
-    //Todo(Not Implemented Yet)
+    QueueL<BorrowRequest> temp;
+    BorrowRequest request;
+    while (!completedRequests.queueIsEmpty()) {
+
+        completedRequests.dequeue(request);
+        temp.enqueue(request);
+        list.push_back(request);
+    }
+    while (!temp.queueIsEmpty()) {
+
+        temp.dequeue(request);
+        completedRequests.enqueue(request);
+    }
     return list;
 }
