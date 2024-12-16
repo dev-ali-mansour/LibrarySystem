@@ -4,7 +4,9 @@ ListBooksUseCase listBooksUseCase(BookRepository::getInstance());
 FindBookByIsbnUseCase findBookByIsbnUseCase(BookRepository::getInstance());
 FindBookByTitleUseCase findBookByTitleUseCase(BookRepository::getInstance());
 FindBookByAuthorUseCase findBookByAuthorUseCase(BookRepository::getInstance());
-
+AddNewBookUseCase addNewBookUseCase(BookRepository::getInstance());
+RemoveBookUseCase removeBookUseCase(BookRepository::getInstance());
+UndoUseCase undoUseCase(BookRepository::getInstance());
 
 void showBookList() {
     cout << "#############" << endl;
@@ -19,6 +21,7 @@ void showBookList() {
         cout << "2) Search By ISBN" << endl;
         cout << "3) Search By Title" << endl;
         cout << "4) Search By Author" << endl;
+        // Todo Add Features: AddNew Book, Remove Book, Undo And set if for admin only
         short choice;
         string query;
         cin >> choice;
@@ -28,6 +31,7 @@ void showBookList() {
             cout << "Please enter a valid number!" << endl;
             continue;
         }
+        //Todo Check if input is invalid(choice>4 and not admin)
         cin.ignore();
         switch (choice) {
             case 1:
@@ -48,6 +52,7 @@ void showBookList() {
                 getline(cin, query);
                 books = findBookByAuthorUseCase.execute(query);
                 break;
+            //Todo Add Required Use cases
             default:
                 cout << "Invalid choice! try again" << endl;
                 break;
