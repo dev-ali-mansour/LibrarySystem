@@ -1,13 +1,13 @@
 #include "../../repository/BookRepository.h"
 
 class RemoveBookUseCase {
-    BookRepository repo;
+    BookRepository *repo;
 
 public:
-    explicit RemoveBookUseCase(BookRepository &repository) : repo(repository) {
+    explicit RemoveBookUseCase(BookRepository *repository) : repo(repository) {
     }
 
     bool execute(const string &isbn) {
-        return repo.removeBook(isbn);
+        return repo->removeBook(isbn);
     }
 };
