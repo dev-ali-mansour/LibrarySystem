@@ -104,7 +104,22 @@ vector<Book> BookRepository::findBookByTitle(const string &title) {
 
 vector<Book> BookRepository::findBookByAuthor(const string &author) {
     vector<Book> list;
-    //Todo(Not Implemented Yet)
+    if (books.listIsEmpty()) {
+        cerr << "\nNo books found!\n";
+        return list;
+    }
+    Book book;
+    books.toFirst();
+    while (!books.listIsEmpty()){
+        books.retrieveData(book);
+        //check if book author contains the author parameter
+        if(StringSearch::caseInsensitiveSubstringSearch(book.author,author)){
+
+            list.push_back(book);
+        }
+        books.advance();
+    }
+    if (list.empty()) cerr<<"\nNo books matches your criteria (" << author << ")\n";
     return list;
 }
 
