@@ -13,7 +13,8 @@ public:
             const string &author,
             const short &version,
             const int &publishingYear,
-            const int &pages) {
-        return repo->addNewBook(isbn, title, author, version, publishingYear, pages);
+            const int &pages,
+            const int &copiesAvailable) {
+        return repo->addNewBook(isbn, title, author, version, publishingYear, pages, copiesAvailable);
     }
 };

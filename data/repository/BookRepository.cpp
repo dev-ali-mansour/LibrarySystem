@@ -7,9 +7,9 @@ using namespace chrono;
 BookRepository *BookRepository::instance = nullptr;
 
 void BookRepository::initialize() {
-    const Book book1("9780134383583", "Discovering Modern C++", "Peter Gottschling", 1, 2015, 480,5);
-    const Book book2("9781507707616", "C# Programming for Beginners", "Troy Dimes", 1, 2015, 106,3);
-    const Book book3("9781517080402", "JAVA Programming for Beginners", "Tim Warren", 1, 2002, 68,2);
+    const Book book1("9780134383583", "Discovering Modern C++", "Peter Gottschling", 1, 2015, 480, 5);
+    const Book book2("9781507707616", "C# Programming for Beginners", "Troy Dimes", 1, 2015, 106, 3);
+    const Book book3("9781517080402", "JAVA Programming for Beginners", "Tim Warren", 1, 2002, 68, 2);
     books.insertFirst(book1.isbn, book1);
     books.orderInsert(book2.isbn, book2);
     books.orderInsert(book3.isbn, book3);
@@ -26,12 +26,12 @@ BookRepository::BookRepository() {
 }
 
 bool BookRepository::addNewBook(
-    const string &isbn,
-    const string &title,
-    const string &author,
-    const short &version,
-    const int &publishingYear,
-    const int &pages,const int &copiesAvailable) {
+        const string &isbn,
+        const string &title,
+        const string &author,
+        const short &version,
+        const int &publishingYear,
+        const int &pages, const int &copiesAvailable) {
     // Check if the book already exists
     vector<Book> matchedBooks = findBookByIsbn(isbn);
     if (!matchedBooks.empty()) {
@@ -44,8 +44,8 @@ bool BookRepository::addNewBook(
         return true;
     }
     // If book does not exist, add it as a new entry
-    const Book book1(isbn, title, author, version,publishingYear,pages,copiesAvailable);
-    books.orderInsert(book1.isbn,book1);
+    const Book book1(isbn, title, author, version, publishingYear, pages, copiesAvailable);
+    books.orderInsert(book1.isbn, book1);
     cout << "New book added with ISBN " << isbn
          << " and " << copiesAvailable << " copies available.\n";
     return true;
@@ -56,8 +56,8 @@ bool BookRepository::removeBook(const string &isbn) {
     Book book;
 
     while (!books.cursorIsEmpty()) {
-    books.retrieveData(book);
-        if (book.isbn==isbn) {
+        books.retrieveData(book);
+        if (book.isbn == isbn) {
             books.deleteNode();
             return true;
         }
@@ -79,12 +79,13 @@ void BookRepository::undo() {
         cout << "Removing The book " << action.book.title << endl;
     } else if (action.type == ActionType::REMOVE) {
         result = addNewBook(
-            action.book.isbn,
-            action.book.title,
-            action.book.author,
-            action.book.version,
-            action.book.publishingYear,
-            action.book.pages);
+                action.book.isbn,
+                action.book.title,
+                action.book.author,
+                action.book.version,
+                action.book.publishingYear,
+                action.book.pages,
+                action.book.copiesAvailable);
         cout << "Re-adding The book " << action.book.title << endl;
     }
     if (result)cout << "Operation done successfully!\n";
@@ -124,16 +125,16 @@ vector<Book> BookRepository::findBookByAuthor(const string &author) {
     }
     Book book;
     books.toFirst();
-    while (!books.listIsEmpty()){
+    while (!books.listIsEmpty()) {
         books.retrieveData(book);
         //check if book author contains the author parameter
-        if(Utilities::caseInsensitiveSubstringSearch(book.author,author)){
+        if (Utilities::caseInsensitiveSubstringSearch(book.author, author)) {
 
             list.push_back(book);
         }
         books.advance();
     }
-    if (list.empty()) cerr<<"\nNo books matches your criteria (" << author << ")\n";
+    if (list.empty()) cerr << "\nNo books matches your criteria (" << author << ")\n";
     return list;
 }
 
@@ -154,9 +155,9 @@ vector<Book> BookRepository::listBooks() {
 }
 
 void BookRepository::requestToBorrowBook(
-    const string &isbn,
-    const long &user_id,
-    const string &created) {
+        const string &isbn,
+        const long &user_id,
+        const string &created) {
     BorrowRequest request(isbn, user_id, created);
     pendingRequests.enqueue(request);
     cout << "Borrow request added for ISBN: " << isbn << " by user " << user_id << endl;
@@ -164,7 +165,7 @@ void BookRepository::requestToBorrowBook(
 }
 
 void BookRepository::proceedBorrowRequest() {
-    if(pendingRequests.queueIsEmpty()) {
+    if (pendingRequests.queueIsEmpty()) {
         cerr << "No pending borrow requests!\n";
         return;
     }
@@ -172,26 +173,24 @@ void BookRepository::proceedBorrowRequest() {
     pendingRequests.dequeue(request);
     //check if requested book is available
     vector<Book> matchedBooks = findBookByIsbn(request.isbn);
-    if (matchedBooks.empty()){
+    if (matchedBooks.empty()) {
 
-        cerr<<"Book with ISBN "<<request.isbn<<" not found\n";
+        cerr << "Book with ISBN " << request.isbn << " not found\n";
         return;
     }
     Book book = matchedBooks.front();
     //check if there is copies of the requested book
-    if(book.copiesAvailable>0)
-    {
+    if (book.copiesAvailable > 0) {
         completedRequests.enqueue(request);
         book.copiesAvailable--;
         cout << "Borrow request for ISBN " << request.isbn << " by user " << request.userId
              << " has been completed successfully.\n";
-    }
-    else {
-        cerr<<"No available copies for ISBN"<<request.isbn<<"!\n";
+    } else {
+        cerr << "No available copies for ISBN" << request.isbn << "!\n";
         pendingRequests.enqueue(request);
-        cout<<"Borrow request are now pending till copies of book "<<book.title<<"with ISBN"<<book.isbn<<"be available";
+        cout << "Borrow request are now pending till copies of book " << book.title << "with ISBN" << book.isbn
+             << "be available";
     }
-
 
 
 }

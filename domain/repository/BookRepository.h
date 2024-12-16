@@ -29,12 +29,13 @@ public:
     }
 
     bool addNewBook(
-        const string &isbn,
-        const string &title,
-        const string &author,
-        const short &version,
-        const int &publishingYear,
-        const int &pages,const int &copiesAvailable));
+            const string &isbn,
+            const string &title,
+            const string &author,
+            const short &version,
+            const int &publishingYear,
+            const int &pages,
+            const int &copiesAvailable);
 
     bool removeBook(const string &isbn);
 
