@@ -13,6 +13,8 @@ add_executable(LibrarySystem
         presentation/auth/SignInScreen.cpp
         presentation/book/BookListScreen.cpp
         presentation/book/BookListScreen.h
+        presentation/book/BorrowRequestsScreen.cpp
+        presentation/book/BorrowRequestsScreen.h
         domain/model/User.cpp
         domain/model/Book.cpp
         domain/model/BorrowRequest.cpp
