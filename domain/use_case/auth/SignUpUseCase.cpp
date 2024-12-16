@@ -11,7 +11,7 @@ public:
     }
 
     void execute(const string &firstName, const string &lastName, const string &email, const short age,
-                 const string &username, const string &password, bool &result, User &currentUser) {
-        repo->signUp(firstName, lastName, email, age, username, password, result, currentUser);
+                 const string &username, const string &password, bool &result) {
+        repo->signUp(firstName, lastName, email, age, username, password, result);
     }
 };

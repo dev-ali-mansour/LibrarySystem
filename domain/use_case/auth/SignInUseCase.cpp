@@ -10,7 +10,7 @@ public:
     explicit SignInUseCase(AuthRepository *repository) : repo(repository) {
     }
 
-    void execute(const string &username, const string &password, bool &result, User &user) {
-        repo->signIn(username, password, result, user);
+    void execute(const string &username, const string &password, bool &result) {
+        repo->signIn(username, password, result);
     }
 };
