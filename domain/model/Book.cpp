@@ -9,6 +9,7 @@ struct Book {
     short version;
     int publishingYear;
     int pages;
+    int copiesAvailable;
 
     Book() = default;
 
@@ -17,7 +18,7 @@ struct Book {
          const string &author,
          const short &version,
          const int &publishing_year,
-         const int &pages
+         const int &pages,const int &copiesAvailable=1
     ) : isbn(isbn),
         title(title),
         author(author),
