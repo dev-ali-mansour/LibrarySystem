@@ -4,13 +4,15 @@ project(LibrarySystem)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(LibrarySystem
-        presentation/main.cpp
-        data/ds/linked_list/List.h
-        data/ds/linked_list/List.tpp
-        data/ds/stack/StackL.h
-        data/ds/stack/StackL.cpp
-        data/ds/queue/QueueL.h
-        data/ds/queue/QueueL.cpp
+        presentation/System.cpp
+        presentation/main/MainScreen.h
+        presentation/main/MainScreen.cpp
+        presentation/auth/SignUpScreen.h
+        presentation/auth/SignUpScreen.cpp
+        presentation/auth/SignInScreen.h
+        presentation/auth/SignInScreen.cpp
+        presentation/book/BookListScreen.cpp
+        presentation/book/BookListScreen.h
         domain/model/User.cpp
         domain/model/Book.cpp
         domain/model/BorrowRequest.cpp
@@ -19,6 +21,8 @@ add_executable(LibrarySystem
         domain/model/BookAction.cpp
         domain/use_case/auth/SignUpUseCase.cpp
         domain/use_case/auth/SignInUseCase.cpp
+        domain/use_case/auth/GetCurrentUserUseCase.cpp
+        domain/use_case/auth/SignOutUseCase.cpp
         domain/use_case/book/ListBooksUseCase.cpp
         domain/use_case/book/AddNewBookUseCase.cpp
         domain/use_case/book/RemoveBookUseCase.cpp
@@ -33,6 +37,12 @@ add_executable(LibrarySystem
         domain/use_case/book/GetCompletedRequestsUseCase.cpp
         domain/repository/AuthRepository.h
         domain/repository/BookRepository.h
+        data/ds/linked_list/List.h
+        data/ds/linked_list/List.tpp
+        data/ds/stack/StackL.h
+        data/ds/stack/StackL.cpp
+        data/ds/queue/QueueL.h
+        data/ds/queue/QueueL.cpp
         data/repository/AuthRepository.cpp
         data/repository/BookRepository.cpp
         data/util/Utilities.cpp
