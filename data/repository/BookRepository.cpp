@@ -204,7 +204,20 @@ void BookRepository::getBorrowRequestsStats(int &pendingCount, int &completedCou
 
 vector<BorrowRequest> BookRepository::getPendingRequests() {
     vector<BorrowRequest> list;
-    //Todo(Not Implemented Yet)
+    QueueL<BorrowRequest> temp;
+    BorrowRequest request;
+    while(!pendingRequests.queueIsEmpty()){
+
+        pendingRequests.dequeue(request);
+        temp.enqueue(request);
+        list.push_back(request);
+    }
+    while (!temp.queueIsEmpty()){
+
+        temp.dequeue(request);
+        pendingRequests.enqueue(request);
+    }
+
     return list;
 }
 
