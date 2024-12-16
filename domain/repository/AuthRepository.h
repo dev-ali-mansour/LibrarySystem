@@ -11,6 +11,7 @@ class AuthRepository {
     static AuthRepository *instance;
     List<long, User> users;
     long lastId{1};
+    User *currentUser;
 
     AuthRepository();
 
@@ -25,9 +26,13 @@ public:
     }
 
     void signUp(const string &firstName, const string &lastName, const string &email, short age,
-                const string &username, const string &password, bool &result, User &currentUser);
+                const string &username, const string &password, bool &result);
 
-    void signIn(const string &username, const string &password, bool &result, User &user);
+    void signIn(const string &username, const string &password, bool &result);
+
+    void signOut();
+
+    User * getCurrentUer();
 };
 
 #endif //AUTH_REPOSITORY_H

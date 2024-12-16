@@ -1,6 +1,6 @@
 #include "../../domain/repository/AuthRepository.h"
 
-AuthRepository* AuthRepository::instance = nullptr;
+AuthRepository *AuthRepository::instance = nullptr;
 
 AuthRepository::AuthRepository() {
     initialize();
@@ -16,23 +16,31 @@ void AuthRepository::initialize() {
 }
 
 void AuthRepository::signUp(const string &firstName, const string &lastName, const string &email, short age,
-                            const string &username, const string &password, bool &result, User &currentUser) {
+                            const string &username, const string &password, bool &result) {
     const User user(lastId++, firstName, lastName, email, age, username, password);
     users.orderInsert(user.id, user);
     result = true;
-    currentUser = user;
 }
 
-void AuthRepository::signIn(const string &username, const string &password, bool &result, User &user) {
+void AuthRepository::signIn(const string &username, const string &password, bool &result) {
     users.toFirst();
     while (!users.cursorIsEmpty()) {
-        User currentUser;
-        users.retrieveData(currentUser);
-        if (currentUser.username == username && currentUser.password == password) {
+        User user;
+        users.retrieveData(user);
+        if (user.username == username && user.password == password) {
             result = true;
-            user = currentUser;
+            currentUser = new User(user);
             break;
         }
         users.advance();
     }
+}
+
+void AuthRepository::signOut() {
+    currentUser = nullptr;
+    delete currentUser;
+}
+
+User *AuthRepository::getCurrentUer() {
+    return currentUser;
 }
